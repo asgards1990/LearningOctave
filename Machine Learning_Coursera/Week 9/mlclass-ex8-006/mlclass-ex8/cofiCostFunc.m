@@ -42,13 +42,15 @@ Theta_grad = zeros(size(Theta));
 
 
 J = 1/2*sum(sum(R.*(X*Theta'-Y).^2));
+%adding regularized term
+J = J + lambda/2*(sum(sum(Theta.^2))+sum(sum(X.^2)));
 
-X_grad  = sump(sum(R.*(X*Theta'-Y)
-Theta_grad
-
-
-
-
+% look at the definition, and see those to be exactly matrix multiplication.
+X_grad = (R.*(X*Theta'-Y))*Theta;
+Theta_grad= (R.*(X*Theta'-Y))'*X;
+%adding regularized term
+X_grad = X_grad + lambda*X;
+Theta_grad = Theta_grad + lambda*Theta;
 
 
 
